@@ -1,0 +1,16 @@
+{
+  "prefer_related_applications": false,
+  "name": "The web of answers",
+  "short_name": "인생의 해답",
+  "theme_color": "black",
+  "background_color": "black",
+  "icons": [
+    {
+      "src": "http://thewebofanswers.s3-website.ap-northeast-2.amazonaws.com/icon.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone"
+}
