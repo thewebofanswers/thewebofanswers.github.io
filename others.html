@@ -158,6 +158,9 @@
   let citiesRef = db.collection("answers");
 
   function back() {
+    gtag('event', 'open', {
+      'event_category': 'others-back'
+    });
     location.href = "index.html"
   }
 
@@ -184,6 +187,9 @@
           answerList.push(doc.data().id);
           let div = document.createElement('div');
           div.onclick = function() {
+            gtag('event', 'click', {
+              'event_category': 'others-detail'
+            });
             window.open('disqus.html?question=' + doc.data().question + '&answer=' + doc.data().answer);
           };
           let q = document.createElement('p');

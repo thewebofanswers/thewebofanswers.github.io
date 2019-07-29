@@ -383,12 +383,18 @@
 </body>
 <script>
   function showOthers() {
+    gtag('event', 'click', {
+      'event_category': 'others'
+    });
     swal({
       title: "다른 사람 해답 보러가기",
       text: "다른 사람의 해답을 보려면 내 해답도 공개돼요.",
       buttons: ["취소", "보러가기"]
     }).then((result) => {
         if (result) {
+          gtag('event', 'open', {
+            'event_category': 'others'
+          });
           db.collection("answers").doc((3155760000000 - new Date().getTime()).toString()).set({
           id: 3155760000000 - new Date().getTime(),
           question: question,
