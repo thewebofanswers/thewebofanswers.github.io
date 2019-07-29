@@ -6,7 +6,7 @@
   "background_color": "black",
   "icons": [
     {
-      "src": "https://thewebofanswers.github.io/icon.png",
+      "src": "https://thewebofanswers.s3.ap-northeast-2.amazonaws.com/icon.png",
       "type": "image/png",
       "sizes": "144x144"
     }

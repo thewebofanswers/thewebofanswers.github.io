@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no" />
-  <meta property="og:image" content="https://thewebofanswers.github.io/thumbnail.png"/>
+  <meta property="og:image" content="https://thewebofanswers.s3.ap-northeast-2.amazonaws.com/thumbnail.png"/>
   <meta property="og:url" content="https://thewebofanswers.github.io/"/>
   <meta property="og:description" content="삶의 답답한 질문에 대한 해답을 찾아보세요"/>
   <meta property="og:title" content="인생의 해답 - The web of answers"/>
   <meta name="theme-color" content="black" />
-  <link rel="shortcut icon" href="icon.png">
+  <link rel="shortcut icon" href="https://thewebofanswers.s3.ap-northeast-2.amazonaws.com/icon.png">
   <link rel="manifest" href="./manifest.json">
   <title>인생의 해답</title>
   <script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-app.js"></script>
@@ -223,6 +223,8 @@
             document.getElementById('description-2').classList.add('fade');
             document.getElementById('description-3').classList.add('fade');
             document.getElementById('find-btn').classList.add('fade');
+            document.getElementById('kakao-ads').style.display = "none";
+
             setTimeout(function () {
               document.getElementById('main-view').style.display = "none";
               document.getElementById('result-view').style.display = "block";
@@ -286,6 +288,7 @@
       gtag('event', 'click', {
         'event_category': 'retry'
       });
+      document.getElementById('kakao-ads').style.display = "block";
       document.getElementById('description-1').classList.remove('fade');
       document.getElementById('description-2').classList.remove('fade');
       document.getElementById('description-3').classList.remove('fade');
@@ -320,7 +323,7 @@
         content: {
           title: question,
           description: '해답은 \'' + document.getElementById('answer').innerText + '\' 입니다.',
-          imageUrl: "https://thewebofanswers.github.io/thumbnail.png",
+          imageUrl: "https://thewebofanswers.s3.ap-northeast-2.amazonaws.com/thumbnail.png",
           link: {
             mobileWebUrl: 'https://thewebofanswers.github.io/',
             webUrl: 'https://thewebofanswers.github.io/'
@@ -355,6 +358,8 @@
            src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE4LjEuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgMjkuNTM2IDI5LjUzNiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjkuNTM2IDI5LjUzNjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPHBhdGggZmlsbD0iZ29sZCIgZD0iTTE0Ljc2OCwwQzYuNjExLDAsMCw2LjYwOSwwLDE0Ljc2OGMwLDguMTU1LDYuNjExLDE0Ljc2NywxNC43NjgsMTQuNzY3czE0Ljc2OC02LjYxMiwxNC43NjgtMTQuNzY3DQoJCUMyOS41MzUsNi42MDksMjIuOTI0LDAsMTQuNzY4LDB6IE0xNC43NjgsMjcuMTI2Yy02LjgyOCwwLTEyLjM2MS01LjUzMi0xMi4zNjEtMTIuMzU5YzAtNi44MjgsNS41MzMtMTIuMzYyLDEyLjM2MS0xMi4zNjINCgkJYzYuODI2LDAsMTIuMzU5LDUuNTM1LDEyLjM1OSwxMi4zNjJDMjcuMTI3LDIxLjU5NCwyMS41OTQsMjcuMTI2LDE0Ljc2OCwyNy4xMjZ6Ii8+DQoJPHBhdGggZmlsbD0iZ29sZCIgZD0iTTE0LjM4NSwxOS4zMzdjLTEuMzM4LDAtMi4yODksMC45NTEtMi4yODksMi4zNGMwLDEuMzM2LDAuOTI2LDIuMzM5LDIuMjg5LDIuMzM5YzEuNDE0LDAsMi4zMTQtMS4wMDMsMi4zMTQtMi4zMzkNCgkJQzE2LjY3MiwyMC4yODgsMTUuNzcxLDE5LjMzNywxNC4zODUsMTkuMzM3eiIvPg0KCTxwYXRoIGZpbGw9ImdvbGQiIGQ9Ik0xNC43NDIsNi4wOTJjLTEuODI0LDAtMy4zNCwwLjUxMy00LjI5MywxLjA1M2wwLjg3NSwyLjgwNGMwLjY2OC0wLjQ2MiwxLjY5Ny0wLjc3MiwyLjU0NS0wLjc3Mg0KCQljMS4yODUsMC4wMjcsMS44NzksMC42NDQsMS44NzksMS41NDNjMCwwLjg1LTAuNjcsMS42OTctMS40OTQsMi43MDFjLTEuMTU2LDEuMzY0LTEuNTk0LDIuNzAxLTEuNTE2LDQuMDEybDAuMDI1LDAuNjY5aDMuNDINCgkJdi0wLjQ2M2MtMC4wMjUtMS4xNTgsMC4zODctMi4xNjIsMS4zMTEtMy4yMTVjMC45NzktMS4wOCwyLjIxMS0yLjM2NiwyLjIxMS00LjMyMUMxOS43MDUsNy45NjgsMTguMTM5LDYuMDkyLDE0Ljc0Miw2LjA5MnoiLz4NCgk8Zz4NCgk8L2c+DQoJPGc+DQoJPC9nPg0KCTxnPg0KCTwvZz4NCgk8Zz4NCgk8L2c+DQoJPGc+DQoJPC9nPg0KCTxnPg0KCTwvZz4NCgk8Zz4NCgk8L2c+DQoJPGc+DQoJPC9nPg0KCTxnPg0KCTwvZz4NCgk8Zz4NCgk8L2c+DQoJPGc+DQoJPC9nPg0KCTxnPg0KCTwvZz4NCgk8Zz4NCgk8L2c+DQoJPGc+DQoJPC9nPg0KCTxnPg0KCTwvZz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K"/>
       <p>찾으러가기</p>
     </div>
+  </div>
+  <div id="kakao-ads">
     <ins class="kakao_ad_area" style="display:none;"
          data-ad-onfail   = "callBackFunc"
          data-ad-unit    = "DAN-1hv881qed65h0"
