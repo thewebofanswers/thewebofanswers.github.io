@@ -55,6 +55,53 @@
     .question {
       font-size: 1.5em;
     }
+    .load-bar {
+      position: relative;
+      margin-top: 20px;
+      width: 100%;
+      height: 6px;
+      background-color: #fdba2c;
+    }
+    .bar {
+      content: "";
+      display: inline;
+      position: absolute;
+      width: 0;
+      height: 100%;
+      left: 50%;
+      text-align: center;
+    }
+    .bar:nth-child(1) {
+      background-color: #da4733;
+      animation: loading 3s linear infinite;
+    }
+    .bar:nth-child(2) {
+      background-color: #3b78e7;
+      animation: loading 3s linear 1s infinite;
+    }
+    .bar:nth-child(3) {
+      background-color: #fdba2c;
+      animation: loading 3s linear 2s infinite;
+    }
+    @keyframes loading {
+      from {left: 50%; width: 0;z-index:100;}
+      33.3333% {left: 0; width: 100%;z-index: 10;}
+      to {left: 0; width: 100%;}
+    }
+
+    @keyframes pulsate {
+      0% {
+        transform: scale(.1);
+        opacity: 0.0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.2);
+        opacity: 0;
+      }
+    }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <script>
@@ -71,7 +118,11 @@
   </p>
   <div id="others"></div>
 </div>
-
+<div class="load-bar" id="signal">
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+</div>
 </body>
 <script>
 
@@ -97,11 +148,16 @@
   let listElm = document.getElementById('others');
   let itemNumber = 0;
   let answerList = [];
+  let querySize = 5;
 
   let loadMore = function() {
-
     citiesRef.orderBy("id").startAfter(itemNumber).limit(5).get().then(function(querySnapshot) {
       // Get all cities with a population bigger than San Francisco
+      if (querySnapshot.size !== querySize) {
+        querySize = querySnapshot.size;
+        document.getElementById('signal').style.display = "block";
+      }
+
       querySnapshot.forEach(function(doc) {
         itemNumber = doc.data().id;
         let isInList = answerList.find(function(element) {
@@ -128,8 +184,11 @@
           listElm.appendChild(hr);
           console.log(doc.id, " => ", doc.data());
         }
-      });
-
+      }
+    );
+      setTimeout(function() {
+        document.getElementById('signal').style.display = "none"
+      }, 1000);
     });
   };
 
