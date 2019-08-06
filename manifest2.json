@@ -1,0 +1,16 @@
+{
+  "prefer_related_applications": false,
+  "name": "Cut off the Eom's house with stocks",
+  "short_name": "Cut off the Eom's house with stocks",
+  "theme_color": "red",
+  "background_color": "red",
+  "icons": [
+    {
+      "src": "https://thewebofanswers.s3.ap-northeast-2.amazonaws.com/icon.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    }
+  ],
+  "start_url": "/stock.html",
+  "display": "standalone"
+}
