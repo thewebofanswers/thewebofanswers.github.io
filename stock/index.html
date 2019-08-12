@@ -11,8 +11,13 @@
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
 </head>
 <style>
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+  }
   .loading {
     position: absolute;
     top: 50%;
@@ -67,57 +72,59 @@
        data-ad-unit    = "DAN-uvhgnejycoj8"
        data-ad-width   = "320"
        data-ad-height  = "100"></ins>
-<div class="input-group input-group-sm mb-3">
+<div class="input-group input-group-sm mb-3" style="margin: 3%;width: 94%;">
   <div class="input-group-prepend">
     <span class="input-group-text" id="inputGroup-sizing-sm">보유 주식 수</span>
   </div>
-  <input type="text" onchange="calc(this)" onkeyup="calc(this)" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+  <input id="stock-amount" type="text" onchange="calc(this)" onkeyup="calc(this)" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
 </div>
-<div class="list-group">
+<div class="list-group" style="text-align: right;">
   <a href="#" class="list-group-item list-group-item-action">
     <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">LCTITAN(5284)</h5>
-      <small>bursamalaysia 기준</small>
+      <h5  id="won_price" class="mb-1" style="font-weight: 600;"></h5>
     </div>
-    <p id="lcttitan" class="mb-1"></p>
-    <small id="ltctitan_date"></small>
+    <p class="mb-1" style="opacity: 0.5;font-size: 0.8rem;">한화 환산(MYR -> KRW(국민은행))</p>
+  </a>
+  <a href="#" class="list-group-item list-group-item-action">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 id="dallar_price" class="mb-1" style="font-weight: 600;"></h5>
+    </div>
+    <p class="mb-1" style="opacity: 0.5;font-size: 0.8rem;" >달러 환산(MYR -> USD(May Bank))</p>
+  </a>
+</div>
+  <br/>
+<div class="list-group" style="text-align: right;">
+  <a href="#" class="list-group-item list-group-item-action">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 id="lcttitan" class="mb-1"></h5>
+    </div>
+    <p class="mb-1" style="opacity: 0.7;font-size: 0.8rem;">LCTITAN(5284) 주가</p>
+    <p id="ltctitan_date" class="mb-1" style="opacity: 0.7;font-size: 0.8rem;"></p>
 
   </a>
   <a href="#" class="list-group-item list-group-item-action">
     <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">원달러 환율</h5>
-      <small class="text-muted">국민은행 기준</small>
+      <h5 id="dallar" class="mb-1"></h5>
     </div>
-    <p id="dallar" class="mb-1"></p>
-    <small id="date1" class="text-muted"></small>
+    <p class="mb-1" style="opacity: 0.7;font-size: 0.8rem;">원달러 환율</p>
+    <p id="date1" class="mb-1" style="opacity: 0.7;font-size: 0.8rem;"></p>
   </a>
   <a href="#" class="list-group-item list-group-item-action">
     <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">원링깃 환율</h5>
-      <small class="text-muted">국민은행 기준</small>
+      <h5 id="myr" class="mb-1"></h5>
     </div>
-    <p id="myr" class="mb-1"></p>
-    <small id="date2" class="text-muted"></small>
+    <p  class="mb-1" style="opacity: 0.7;font-size: 0.8rem;">원링깃 환율</p>
+    <p id="date2" class="mb-1" style="opacity: 0.7;font-size: 0.8rem;"></p>
   </a>
   <a href="#" class="list-group-item list-group-item-action">
     <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">링깃달러 환율</h5>
-      <small class="text-muted">maybank 기준</small>
+      <h5 id="dallar_myr" class="mb-1"></h5>
     </div>
-    <p id="dallar_myr" class="mb-1"></p>
+    <p  class="mb-1" style="opacity: 0.7;font-size: 0.8rem;">링깃달러 환율</p>
+    <p class="mb-1" style="opacity: 0.7;font-size: 0.8rem;">maybank</p>
+
   </a>
-  <a href="#" class="list-group-item list-group-item-action">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">달러 환산(MYR -> USD(May Bank))</h5>
-    </div>
-    <p class="mb-1" id="dallar_price"></p>
-  </a>
-  <a href="#" class="list-group-item list-group-item-action">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">한화 환산(MYR -> KRW(국민은행))</h5>
-    </div>
-    <p class="mb-1" id="won_price"></p>
-  </a>
+
 </div>
 </div>
 <script>
@@ -127,8 +134,9 @@
   let won_myr;
   let myr_dallar;
 
+
   function callback(data) {
-    document.getElementById('ltctitan_date').innerText = data.ltctitan_date + " MYT(GMT+8)";
+    document.getElementById('ltctitan_date').innerText = data.ltctitan_date + " MYT(GMT+8) - bursamalaysia";
     document.getElementById('lcttitan').innerText = String(data.ltctitan) + " MYR";
     stock_price = Number(data.ltctitan);
     document.getElementById('dallar').innerText = String(data.dallar) + " KRW";
@@ -137,20 +145,24 @@
     myr_dallar = Number(data.dallar_myr);
     document.getElementById('myr').innerText = String(data.myr) + " KRW";
     won_myr = Number(data.myr);
-    document.getElementById('date1').innerText = '오늘 ' + data.date + " KST(GMT+9)";
-    document.getElementById('date2').innerText = '오늘 ' + data.date + " KST(GMT+9)";
+    document.getElementById('date1').innerText = '오늘 ' + data.date + " KST(GMT+9) - 국민은행 기준";
+    document.getElementById('date2').innerText = '오늘 ' + data.date + " KST(GMT+9) - 국민은행 기준";
     document.getElementById('loading').style.display = "none";
     document.getElementById('main').style.display = "block";
-
+    let stockAmount = sessionStorage.getItem('stock-amount');
+    if (stockAmount !== null) {
+      document.getElementById('stock-amount').value = Number(stockAmount);
+      calc(document.getElementById('stock-amount'))
+    }
   }
   const script = document.createElement('script');
-  script.src = 'http://ec2-13-124-36-161.ap-northeast-2.compute.amazonaws.com:8088/stock/';
+  script.src = 'https://4fjemrjkze.execute-api.ap-northeast-2.amazonaws.com/dev';
   document.body.append(script);
 
 
-  function calc(aa) {
-    amount = Number(aa.value);
-    console.log(amount*stock_price/myr_dallar , amount*stock_price/myr_dallar*won_dallar, amount*stock_price*won_myr);
+  function calc(stock_amount) {
+    sessionStorage.setItem('stock-amount', stock_amount.value);
+    amount = Number(stock_amount.value);
     document.getElementById('dallar_price').innerText = 'USD ' + Math.round(amount*stock_price/myr_dallar*100)/100  + ' (약 KRW ' + Math.round(amount*stock_price/myr_dallar*won_dallar) + ')'
     document.getElementById('won_price').innerText = 'KRW ' + Math.round(amount*stock_price*won_myr);
   }
