@@ -149,7 +149,7 @@
     document.getElementById('date2').innerText = '오늘 ' + data.date + " KST(GMT+9) - 국민은행 기준";
     document.getElementById('loading').style.display = "none";
     document.getElementById('main').style.display = "block";
-    let stockAmount = sessionStorage.getItem('stock-amount');
+    let stockAmount = localStorage.getItem('stock-amount');
     if (stockAmount !== null) {
       document.getElementById('stock-amount').value = Number(stockAmount);
       calc(document.getElementById('stock-amount'))
@@ -161,7 +161,7 @@
 
 
   function calc(stock_amount) {
-    sessionStorage.setItem('stock-amount', stock_amount.value);
+    localStorage.setItem('stock-amount', stock_amount.value);
     amount = Number(stock_amount.value);
     document.getElementById('dallar_price').innerText = 'USD ' + Math.round(amount*stock_price/myr_dallar*100)/100  + ' (약 KRW ' + Math.round(amount*stock_price/myr_dallar*won_dallar) + ')'
     document.getElementById('won_price').innerText = 'KRW ' + Math.round(amount*stock_price*won_myr);
