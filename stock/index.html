@@ -12,7 +12,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
 <style>
   body {
@@ -78,6 +78,7 @@
   </div>
   <input id="stock-amount" type="text" onchange="calc(this)" onkeyup="calc(this)" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
 </div>
+  <p id="time" style="font-size: 10px; text-align: center;"></p>
 <div class="list-group" style="text-align: right;">
   <a href="#" class="list-group-item list-group-item-action">
     <div class="d-flex w-100 justify-content-between">
@@ -92,6 +93,8 @@
     <p class="mb-1" style="opacity: 0.5;font-size: 0.8rem;" >달러 환산(MYR -> USD(May Bank))</p>
   </a>
 </div>
+  <br/>
+  <canvas id="myChart"></canvas>
   <br/>
 <div class="list-group" style="text-align: right;">
   <a href="#" class="list-group-item list-group-item-action">
@@ -155,17 +158,75 @@
       calc(document.getElementById('stock-amount'))
     }
   }
+
+  document.getElementById('time').innerText = new Date().toString();
+
   const script = document.createElement('script');
   script.src = 'https://4fjemrjkze.execute-api.ap-northeast-2.amazonaws.com/dev';
   document.body.append(script);
 
+  var date_price = [723.8, 725.8, 725.5, 725.4];
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+      labels: ['8.21', '8.22', '8.23', '8.26'],
+      datasets: [{
+        label: '주식 변동 추이',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data : date_price
+      }]
+    },
+
+    // Configuration options go here
+    options: {
+      title: {
+        display: false,
+      },
+      elements: {
+        line: {
+          fill: false,
+          tension: 0 // disables bezier curves
+        }
+      }
+    }
+  });
+
+  function addData(chart, data) {
+    chart.data.datasets.forEach((dataset) => {
+      dataset.data.push(data);
+    });
+    chart.update();
+  }
+
+  function removeData(chart) {
+    chart.data.labels.pop();
+    chart.data.datasets.forEach((dataset) => {
+      dataset.data.pop();
+    });
+    chart.update();
+  }
 
   function calc(stock_amount) {
     localStorage.setItem('stock-amount', stock_amount.value);
     amount = Number(stock_amount.value);
+
+    chart.data.datasets[0].data = date_price.map((x) => {
+      console.log(Math.round(x*amount));
+      return Math.round(x*amount);
+    });
+
+    chart.update();
     document.getElementById('dallar_price').innerText = 'USD ' + Math.round(amount*stock_price/myr_dallar*100)/100  + ' (약 KRW ' + Math.round(amount*stock_price/myr_dallar*won_dallar) + ')'
     document.getElementById('won_price').innerText = 'KRW ' + Math.round(amount*stock_price*won_myr);
   }
+
+
+
 
 
 </script>
