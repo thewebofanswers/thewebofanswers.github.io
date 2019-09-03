@@ -138,27 +138,6 @@
   let myr_dallar;
 
 
-  function callback(data) {
-    document.getElementById('ltctitan_date').innerText = data.ltctitan_date + " MYT(GMT+8) - bursamalaysia";
-    document.getElementById('lcttitan').innerText = String(data.ltctitan) + " MYR";
-    stock_price = Number(data.ltctitan);
-    document.getElementById('dallar').innerText = String(data.dallar) + " KRW";
-    won_dallar = Number(data.dallar.replace(',', ''));
-    document.getElementById('dallar_myr').innerText = String(data.dallar_myr) + " MYR";
-    myr_dallar = Number(data.dallar_myr);
-    document.getElementById('myr').innerText = String(data.myr) + " KRW";
-    won_myr = Number(data.myr);
-    document.getElementById('date1').innerText = '오늘 ' + data.date + " KST(GMT+9) - 국민은행 기준";
-    document.getElementById('date2').innerText = '오늘 ' + data.date + " KST(GMT+9) - 국민은행 기준";
-    document.getElementById('loading').style.display = "none";
-    document.getElementById('main').style.display = "block";
-    let stockAmount = localStorage.getItem('stock-amount');
-    if (stockAmount !== null) {
-      document.getElementById('stock-amount').value = Number(stockAmount);
-      calc(document.getElementById('stock-amount'))
-    }
-  }
-
   document.getElementById('time').innerText = new Date().toString();
 
   const script = document.createElement('script');
@@ -173,7 +152,7 @@
 
     // The data for our dataset
     data: {
-      labels: ['8.21', '8.22', '8.23', '8.26', '8.27', '8.28', '8.29', '8.30'],
+      labels: ['8.21', '8.22', '8.23', '8.26', '8.27', '8.28', '8.29', '8.30', 'Today'],
       datasets: [{
         label: '주식 변동 추이',
         backgroundColor: 'rgb(255, 99, 132)',
@@ -195,6 +174,29 @@
       }
     }
   });
+
+  function callback(data) {
+    document.getElementById('ltctitan_date').innerText = data.ltctitan_date + " MYT(GMT+8) - bursamalaysia";
+    document.getElementById('lcttitan').innerText = String(data.ltctitan) + " MYR";
+    stock_price = Number(data.ltctitan);
+    document.getElementById('dallar').innerText = String(data.dallar) + " KRW";
+    won_dallar = Number(data.dallar.replace(',', ''));
+    document.getElementById('dallar_myr').innerText = String(data.dallar_myr) + " MYR";
+    myr_dallar = Number(data.dallar_myr);
+    document.getElementById('myr').innerText = String(data.myr) + " KRW";
+    won_myr = Number(data.myr);
+    document.getElementById('date1').innerText = '오늘 ' + data.date + " KST(GMT+9) - 국민은행 기준";
+    document.getElementById('date2').innerText = '오늘 ' + data.date + " KST(GMT+9) - 국민은행 기준";
+    document.getElementById('loading').style.display = "none";
+    document.getElementById('main').style.display = "block";
+    let stockAmount = localStorage.getItem('stock-amount');
+    if (stockAmount !== null) {
+      document.getElementById('stock-amount').value = Number(stockAmount);
+      calc(document.getElementById('stock-amount'))
+    }
+    date_price.push(Math.round(data.ltctitan*data.myr*10)/10);
+    chart.update();
+  }
 
   function addData(chart, data) {
     chart.data.datasets.forEach((dataset) => {
