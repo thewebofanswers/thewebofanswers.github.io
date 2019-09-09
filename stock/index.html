@@ -189,14 +189,12 @@
     document.getElementById('date2').innerText = '오늘 ' + data.date + " KST(GMT+9) - 국민은행 기준";
     document.getElementById('loading').style.display = "none";
     document.getElementById('main').style.display = "block";
+    date_price.push(Math.round(data.ltctitan*data.myr*10)/10);
     let stockAmount = localStorage.getItem('stock-amount');
     if (stockAmount !== null) {
       document.getElementById('stock-amount').value = Number(stockAmount);
       calc(document.getElementById('stock-amount'))
-    } else {
-      calc(1);
     }
-    date_price.push(Math.round(data.ltctitan*data.myr*10)/10);
     chart.update();
   }
 
