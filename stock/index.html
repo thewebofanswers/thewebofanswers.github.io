@@ -144,7 +144,7 @@
   script.src = 'https://4fjemrjkze.execute-api.ap-northeast-2.amazonaws.com/dev';
   document.body.append(script);
 
-  var date_price = [723.8, 725.8, 725.5, 725.4, 727, 722.5, 709.8, 713, 714.3, 717.5, 714.2, 757.4, 754.1];
+  var date_price = [723.8, 725.8, 725.5, 725.4, 727, 722.5, 709.8, 713, 714.3, 717.5, 714.2, 757.4, 754.1, 747, 755.6, 749.9];
   var ctx = document.getElementById('myChart').getContext('2d');
   var chart = new Chart(ctx, {
     // The type of chart we want to create
@@ -152,7 +152,7 @@
 
     // The data for our dataset
     data: {
-      labels: ['8.21', '8.22', '8.23', '8.26', '8.27', '8.28', '8.29', '8.30','9.3' ,'9.4','9.5', '9.6', '9.10', 'Today'],
+      labels: ['8.21', '8.22', '8.23', '8.26', '8.27', '8.28', '8.29', '8.30','9.3' ,'9.4','9.5', '9.6', '9.10', '9.11','9.12','9.13''Today'],
       datasets: [{
         label: '주식 변동 추이',
         backgroundColor: 'rgb(255, 99, 132)',
